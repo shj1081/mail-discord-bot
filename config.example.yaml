@@ -1,0 +1,11 @@
+mail:
+    host: 'your_mail_host'
+    port: 993
+    username: 'your_email@your_domain.com'
+    password: 'your_password'
+    check_interval: '1h'
+    allowed_domains:
+        - 'your_allowed_domain'
+
+discord:
+    webhook_url: 'your_discord_webhook_url'
