@@ -10,6 +10,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o bot ./cmd/main.go
 # Final stage
 FROM alpine:3.19
 WORKDIR /app
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates && update-ca-certificates
 COPY --from=builder /app/bot .
+COPY --from=builder /app/config.yaml .
 CMD ["./bot"]

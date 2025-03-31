@@ -1,6 +1,7 @@
 package mail
 
 import (
+	"crypto/tls"
 	"fmt"
 	"strconv"
 	"time"
@@ -31,7 +32,12 @@ func CheckEmails() ([]*imap.Message, error) {
 // connect to IMAP
 func connectToIMAP() (*client.Client, error) {
 	cfg := config.App.Mail
-	imapClient, err := client.DialTLS(cfg.Host+":"+strconv.Itoa(cfg.Port), nil)
+
+	tlsConfig := &tls.Config{
+		InsecureSkipVerify: true, // bypass certificate verification for testing
+	}
+
+	imapClient, err := client.DialTLS(cfg.Host+":"+strconv.Itoa(cfg.Port), tlsConfig)
 	if err != nil {
 		return nil, err
 	}
